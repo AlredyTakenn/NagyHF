@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="NagyHF/NagyHF.vcxproj" Id="9b2390c0-6ea7-453e-83ca-ba4d5a91865d" />
+</Solution>
