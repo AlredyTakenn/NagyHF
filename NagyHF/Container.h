@@ -1,5 +1,5 @@
 #pragma once
-#include <exception>
+#include <stdexcept>
 template <typename T>
 class Container
 {
@@ -51,7 +51,7 @@ public:
 				capacity = capacity * 2;
 			}
 			T* newList = new T[capacity];
-			for (int i = 0; i < elementCount; i++)
+			for (unsigned i = 0; i < elementCount; i++)
 			{
 				newList[i] = elements[i];
 			}
@@ -66,22 +66,27 @@ public:
 	{
 		return capacity;
 	}
+	unsigned getElementCount() const
+	{
+		return elementCount;
+	}
 
 	T& operator[](unsigned index)
 	{
-		if (index>=elementCount)
+		if (index >= elementCount) 
 		{
 			throw std::out_of_range("Túlindexelés a tömbben");
 		}
-		return elemek[index];
+		return elements[index]; 
 	}
 
-	const T& operator[](unsigned index) const 
+	const T& operator[](unsigned index) const
 	{
-		if (index >= meret) {
-			throw std::out_of_range("Tulindexeles a taroloban!");
+		if (index >= elementCount) 
+		{ 
+			throw std::out_of_range("Túlindexelés a tömbben");
 		}
-		return elemek[index];
+		return elements[index];
 	}
 
 	~Container()

@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Container.cpp" />
     <ClCompile Include="FamilyRoom.cpp" />
     <ClCompile Include="Guest.cpp" />
     <ClCompile Include="LuxuryRoom.cpp" />
