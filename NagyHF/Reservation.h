@@ -22,18 +22,19 @@ public:
 	chrono::year_month_day GetTimeTo() const;
 	const Guest* GetGuests() const;
 	const std::string* GetExtraServices() const;
+	const unsigned GetGuestCount() const;
 	Room* GetReservedRoom() const;
 	bool GetHere() const;
 	unsigned GetExtraServicesCount() const;
 
 	void SetTimeFrom(chrono::year_month_day pfrom);
 	void SetTimeTo(chrono::year_month_day pto);
-	void SetGuests(Guest* pguest);
+	void SetGuests(Guest* pguest, unsigned pguestcount);
 	void SetExtraServices(std::string* pextraservices, unsigned pextraservicescount);
 	void SetReservedRoom(Room* proom);
 
 
-	double Invoice();
+	double Invoice() const;
 	void CheckIn();
 	void CheckOut();
 
@@ -42,6 +43,7 @@ public:
 	bool operator<=(const Reservation& jobbop) const;
 	bool operator>(const Reservation& jobbop) const;
 	bool operator>=(const Reservation& jobbop) const;
+
 	Reservation& operator=(const Reservation& other);
 
 	~Reservation();
