@@ -1,20 +1,19 @@
 #pragma once
 #include <string>
-using namespace std;
 class Guest
 {
 private:
-	string name;
-	string Id;
+	std::string name;
+	std::string Id;
 public:
 	Guest();
-	Guest(string pname, string pId);
+	Guest(std::string pname, std::string pId);
 	Guest(const Guest& other);
 
-	string GetName() const;
-	string GetId() const;
+	std::string GetName() const;
+	std::string GetId() const;
 
-	void SetName(string pname);
-	void SetId(string pId);
+	void SetName(std::string pname);
+	void SetId(std::string pId);
 };
 

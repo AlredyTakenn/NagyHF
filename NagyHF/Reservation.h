@@ -6,8 +6,8 @@
 class Reservation
 {
 private:
-	chrono::year_month_day timeFrom;
-	chrono::year_month_day timeTo;
+	std::chrono::year_month_day timeFrom;
+	std::chrono::year_month_day timeTo;
 	Guest* guests;
 	unsigned guestCount;
 	std::string* extraServices;
@@ -15,11 +15,11 @@ private:
 	Room* reservedRoom;
 	bool here;
 public:
-	Reservation(chrono::year_month_day pfrom, chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
+	Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
 	Reservation(const Reservation& other);
 
-	chrono::year_month_day GetTimeFrom() const;
-	chrono::year_month_day GetTimeTo() const;
+	std::chrono::year_month_day GetTimeFrom() const;
+	std::chrono::year_month_day GetTimeTo() const;
 	const Guest* GetGuests() const;
 	const std::string* GetExtraServices() const;
 	const unsigned GetGuestCount() const;
@@ -27,8 +27,8 @@ public:
 	bool GetHere() const;
 	unsigned GetExtraServicesCount() const;
 
-	void SetTimeFrom(chrono::year_month_day pfrom);
-	void SetTimeTo(chrono::year_month_day pto);
+	void SetTimeFrom(std::chrono::year_month_day pfrom);
+	void SetTimeTo(std::chrono::year_month_day pto);
 	void SetGuests(Guest* pguest, unsigned pguestcount);
 	void SetExtraServices(std::string* pextraservices, unsigned pextraservicescount);
 	void SetReservedRoom(Room* proom);
