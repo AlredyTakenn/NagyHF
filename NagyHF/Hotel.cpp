@@ -158,3 +158,11 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 		throw std::invalid_argument("Hiba: Nincs aktiv foglalas a megadott igazolvanyszammal!");
 	}
 }
+
+Hotel::~Hotel()
+{
+	for (unsigned i = 0; i < roomList.getElementCount(); i++)
+	{
+		delete roomList[i];
+	}
+}

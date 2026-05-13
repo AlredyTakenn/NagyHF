@@ -11,7 +11,7 @@ private:
 	Container<Guest> guestList;
 	Container<Reservation> reservationList;
 public:
-	Hotel();
+	Hotel() = default;
 	Hotel(const Hotel& other) = delete;
 	Hotel& operator=(const Hotel& other) = delete;
 

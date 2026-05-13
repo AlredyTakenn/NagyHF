@@ -88,6 +88,7 @@ void Reservation::SetGuests(Guest* pguest, unsigned pguestcount)
 	{
 		delete[] guests;
 	}
+	guestCount = pguestcount;
 	guests = new Guest[pguestcount];
 	for (unsigned i = 0; i < pguestcount; i++)
 	{
@@ -101,6 +102,7 @@ void Reservation::SetExtraServices(std::string* pextraservices, unsigned pextras
 	{
 		delete[] extraServices;
 	}
+	extraServicesCount = pextraservicescount;
 	extraServices = new std::string[pextraservicescount];
 	for (unsigned i = 0; i < pextraservicescount; i++)
 	{
