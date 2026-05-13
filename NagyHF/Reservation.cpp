@@ -1,7 +1,8 @@
 #include "Reservation.h"
 #include "Guest.h"
+using namespace std;
 
-Reservation::Reservation(chrono::year_month_day pfrom, chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom)
+Reservation::Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom)
 	:timeFrom(pfrom), timeTo(pto), guestCount(pguestcount), extraServicesCount(pextraservicescount), reservedRoom(proom), here(false)
 {
 	guests = new Guest[guestCount];
@@ -31,12 +32,12 @@ Reservation::Reservation(const Reservation& other):
 	}
 }
 
-chrono::year_month_day Reservation::GetTimeFrom() const
+std::chrono::year_month_day Reservation::GetTimeFrom() const
 {
 	return timeFrom;
 }
 
-chrono::year_month_day Reservation::GetTimeTo() const
+std::chrono::year_month_day Reservation::GetTimeTo() const
 {
 	return timeTo;
 }
@@ -118,7 +119,7 @@ double Reservation::Invoice() const
 	chrono::sys_days from = timeFrom;
 	chrono::sys_days to = timeTo;
 	chrono::days duration = to - from;
-	double totalPrice = pricePerDay * duration.count();
+	double totalPrice = pricePerDay * duration.count() + pricePerDay*0.05*extraServicesCount;
 	return totalPrice;
 }
 

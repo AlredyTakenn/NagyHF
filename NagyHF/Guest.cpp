@@ -1,6 +1,6 @@
 #include "Guest.h"
 #include <stdexcept>
-
+using namespace std;
 Guest::Guest()
 {
 

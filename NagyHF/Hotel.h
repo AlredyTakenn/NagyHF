@@ -15,8 +15,8 @@ public:
 	Hotel(const Hotel& other) = delete;
 	Hotel& operator=(const Hotel& other) = delete;
 
-	void AddRoom(Room proom);
-	void RegisterGuest(const Guest& pguest);
+	void AddRoom(Room* proom);
+	void RegisterGuest(std::string pname, std::string pId);
 	void BookReservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber);
 
 	void CheckIn(std::string searchGuestId);

@@ -8,6 +8,7 @@ class Reservation
 private:
 	std::chrono::year_month_day timeFrom;
 	std::chrono::year_month_day timeTo;
+	std::chrono::sys_days duration;
 	Guest* guests;
 	unsigned guestCount;
 	std::string* extraServices;

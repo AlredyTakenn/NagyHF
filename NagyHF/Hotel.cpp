@@ -1,1 +1,160 @@
 #include "Hotel.h"
+#include <stdexcept>
+#include <iostream>
+
+void Hotel::AddRoom(Room* proom)
+{
+	roomList.add(proom);
+}
+
+void Hotel::RegisterGuest(std::string pname, std::string pId)
+{
+	Guest newGuest(pname, pId);
+	guestList.add(newGuest);
+}
+
+void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber)
+{
+	Room* foundRoom = nullptr;
+	for (unsigned i = 0; i < roomList.getElementCount(); i++)
+	{
+		if (roomList[i]->GetRoomNumber() == requestedRoomNumber)
+		{
+			foundRoom = roomList[i];
+			break;
+		}
+	}
+	if (foundRoom == nullptr)
+	{
+		throw std::invalid_argument("Hiba: Nem létezik ilyen szobaszám a szállodában!");
+	}
+	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
+	{
+		if (reservationList[i].GetReservedRoom()->GetRoomNumber() == requestedRoomNumber)
+		{
+			if (pfrom < reservationList[i].GetTimeTo() && pto > reservationList[i].GetTimeFrom())
+			{
+				throw std::logic_error("Hiba: Erre az időszakra foglalt a szoba!");
+			}
+		}
+	}
+	Reservation newRes(pfrom, pto, pguests, pguestcount, pextraservices, pextraservicescount, foundRoom);
+	reservationList.add(newRes);
+	std::cout << "Sikeres foglalás a(z)" << requestedRoomNumber << ". szobára!" << std::endl;
+}
+
+void Hotel::CheckIn(std::string searchGuestId)
+{
+	bool found = false;
+	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
+	{
+		const Guest* currentGuests = reservationList[i].GetGuests();
+		const unsigned currentGuestCount = reservationList[i].GetGuestCount();
+
+		for (unsigned j = 0; j < currentGuestCount; j++)
+		{
+			if (currentGuests[j].GetId() == searchGuestId && reservationList[i].GetHere() == false)
+			{
+				reservationList[i].CheckIn();
+				std::cout << "Sikeres bejelentkezes!" << std::endl;
+				found = true;
+				break;
+			}
+		}
+		if (found)
+		{
+			break;
+		}
+	}
+	if (!found)
+	{
+		throw std::invalid_argument("Hiba: Nincs foglalas a megadott igazolvanyszammal!");
+	}
+}
+// mivan ha ugyan az az ember kettőt foglalt
+
+void Hotel::CheckOut(std::string searchGuestId)
+{
+	bool found = false;
+	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
+	{
+		const Guest* currentGuests = reservationList[i].GetGuests();
+		const unsigned currentGuestCount = reservationList[i].GetGuestCount();
+		for (unsigned j = 0; j < currentGuestCount; j++)
+		{
+			if (currentGuests[j].GetId() == searchGuestId && reservationList[i].GetHere() == true)
+			{
+				reservationList[i].CheckOut();
+				std::cout << "Sikeres kijelentkezés!" << std::endl;
+				found = true;
+				break;
+			}
+		}
+		if (found)
+		{
+			break;
+		}
+	}
+	if (!found)
+	{
+		throw std::invalid_argument("Hiba: Nincs foglalas a megadott igazolvanyszammal!");
+	}
+}
+
+void Hotel::GenerateInvoice(std::string searchGuestId)
+{
+	bool found = false;
+	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
+	{
+		Reservation& currentRes = reservationList[i];
+
+		const Guest* currentGuests = currentRes.GetGuests();
+		const unsigned currentGuestCount = currentRes.GetGuestCount();
+
+		for (unsigned j = 0; j < currentGuestCount; j++)
+		{
+			
+			if (currentGuests[j].GetId() == searchGuestId && currentRes.GetHere() == true)
+			{
+				std::cout << "A(z) " << searchGuestId << " igazolványszámú vendég végszámlája:" << std::endl;
+
+				double napiAr = currentRes.GetReservedRoom()->CalculatePrice();
+				std::cout << "A tartózkodási idő: " << (currentRes.Invoice() / napiAr) << " éjszaka." << std::endl;
+				std::cout << "A szoba ára/nap: " << napiAr << std::endl;
+
+				std::cout << "Igénybevett szolgáltatások:" << std::endl;
+
+				std::cout << "  (Szoba extrák):" << std::endl;
+				const unsigned extrasCount = currentRes.GetReservedRoom()->GetExtrasCount();
+				const std::string* roomExtras = currentRes.GetReservedRoom()->GetExtras();
+				for (unsigned k = 0; k < extrasCount; k++) 
+				{
+					std::cout << "    - " << roomExtras[k] << std::endl;
+				}
+
+				std::cout << "  (Foglalás extrák):" << std::endl;
+				const unsigned resExtrasCount = currentRes.GetExtraServicesCount();
+				const std::string* resExtras = currentRes.GetExtraServices();
+				for (unsigned k = 0; k < resExtrasCount; k++)
+				{
+					std::cout << "    - " << resExtras[k] << std::endl;
+				}
+
+				std::cout << "-----------------------------------" << std::endl;
+				std::cout << "ÖSSZESEN FIZETENDŐ: " << currentRes.Invoice() << " HUF" << std::endl;
+
+				found = true;
+				break;
+			}
+		}
+		if (found)
+		{
+			break;
+		}
+	}
+
+	if (!found)
+	{
+		throw std::invalid_argument("Hiba: Nincs aktiv foglalas a megadott igazolvanyszammal!");
+	}
+}
