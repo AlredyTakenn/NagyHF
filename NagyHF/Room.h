@@ -4,7 +4,7 @@
 class Room : 
 	public Serializable
 {
-protected:
+private:
 	std::string roomType;
 	unsigned roomNumber;
 	unsigned numberOfBeds;
@@ -12,7 +12,7 @@ protected:
 	unsigned extrasCount;
 	std::string* extras;
 public:
-	Room(unsigned pnum, std::string ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount);
+	Room(unsigned pnum,const std::string& ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount);
 	Room(const Room& other);
 
 	unsigned GetRoomNumber() const;

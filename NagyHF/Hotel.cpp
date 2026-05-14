@@ -66,13 +66,13 @@ void Hotel::AddRoom(Room* proom)
 	roomList.add(proom);
 }
 
-void Hotel::RegisterGuest(std::string pname, std::string pId)
+void Hotel::RegisterGuest(const std::string& pname, const std::string& pId)
 {
 	Guest newGuest(pname, pId);
 	guestList.add(newGuest);
 }
 
-void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber)
+void Hotel::BookReservation(const std::chrono::year_month_day& pfrom,const std::chrono::year_month_day& pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber)
 {
 	if (pfrom > pto)
 	{
@@ -106,7 +106,7 @@ void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year
 	std::cout << "Sikeres foglalás a(z)" << requestedRoomNumber << ". szobára!" << std::endl;
 }
 
-void Hotel::CheckIn(std::string searchGuestId)
+void Hotel::CheckIn(const std::string& searchGuestId)
 {
 	bool found = false;
 	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
@@ -135,7 +135,7 @@ void Hotel::CheckIn(std::string searchGuestId)
 	}
 }
 
-void Hotel::CheckOut(std::string searchGuestId)
+void Hotel::CheckOut(const std::string& searchGuestId)
 {
 	bool found = false;
 	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
@@ -163,7 +163,7 @@ void Hotel::CheckOut(std::string searchGuestId)
 	}
 }
 
-void Hotel::GenerateInvoice(std::string searchGuestId)
+void Hotel::GenerateInvoice(const std::string& searchGuestId)
 {
 	bool found = false;
 	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
@@ -221,7 +221,7 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 	}
 }
 
-void Hotel::SaveToFile(const std::string fileName) const
+void Hotel::SaveToFile(const std::string& fileName) const
 {
 	std::ofstream os(fileName);
 	if (!os.is_open())
@@ -245,7 +245,7 @@ void Hotel::SaveToFile(const std::string fileName) const
 	}
 }
 
-void Hotel::LoadFromFile(const std::string fileName)
+void Hotel::LoadFromFile(const std::string& fileName)
 {
 	std::ifstream is(fileName);
 	std::string tag;

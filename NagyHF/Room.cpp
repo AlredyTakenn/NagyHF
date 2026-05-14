@@ -1,6 +1,6 @@
 #include "Room.h"
 
-Room::Room(unsigned pnum, std::string ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount):
+Room::Room(unsigned pnum,const std::string& ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount):
 	roomNumber(pnum), roomType(ptype), numberOfBeds(pbed), roomBasePrice(pprice), extrasCount(pextracount)
 {
 	extras = new std::string[extrasCount];

@@ -19,7 +19,7 @@ private:
 
 public:
 	Reservation();
-	Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
+	Reservation(const std::chrono::year_month_day& pfrom, const std::chrono::year_month_day& pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
 	Reservation(const Reservation& other);
 
 	std::chrono::year_month_day GetTimeFrom() const;
@@ -32,8 +32,8 @@ public:
 	unsigned GetExtraServicesCount() const;
 	unsigned GetLastReadRoomNumber()const;
 
-	void SetTimeFrom(std::chrono::year_month_day pfrom);
-	void SetTimeTo(std::chrono::year_month_day pto);
+	void SetTimeFrom(const std::chrono::year_month_day& pfrom);
+	void SetTimeTo(const std::chrono::year_month_day& pto);
 	void SetGuests(Guest* pguest, unsigned pguestcount);
 	void SetExtraServices(std::string* pextraservices, unsigned pextraservicescount);
 	void SetReservedRoom(Room* proom);

@@ -21,15 +21,15 @@ public:
 	Hotel& operator=(const Hotel& other) = delete;
 
 	void AddRoom(Room* proom);
-	void RegisterGuest(std::string pname, std::string pId);
-	void BookReservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber);
+	void RegisterGuest(const std::string& pname,const std::string& pId);
+	void BookReservation(const std::chrono::year_month_day& pfrom, const std::chrono::year_month_day& pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber);
 
-	void CheckIn(std::string searchGuestId);
-	void CheckOut(std::string searchGuestId);
-	void GenerateInvoice(std::string searchGuestId);
+	void CheckIn(const std::string& searchGuestId);
+	void CheckOut(const std::string& searchGuestId);
+	void GenerateInvoice(const std::string& searchGuestId);
 
-	void SaveToFile(const std::string fileName)const;
-	void LoadFromFile(const std::string fileName);
+	void SaveToFile(const std::string& fileName)const;
+	void LoadFromFile(const std::string& fileName);
 	~Hotel();
 };
 

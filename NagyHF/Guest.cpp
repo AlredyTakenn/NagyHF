@@ -6,7 +6,7 @@ Guest::Guest()
 
 }
 
-Guest::Guest(string pname, string pId)
+Guest::Guest(const string& pname, const string& pId)
 {
     SetName(pname);
     SetId(pId);
@@ -28,7 +28,7 @@ string Guest::GetId() const
     return Id;
 }
 
-void Guest::SetName(string pname)
+void Guest::SetName(const string& pname)
 {
 	if (pname.empty())
     {
@@ -37,7 +37,7 @@ void Guest::SetName(string pname)
     name = pname;
 }
 
-void Guest::SetId(string pId)
+void Guest::SetId(const string& pId)
 {
     if (pId.empty())
     {
