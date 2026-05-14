@@ -25,6 +25,19 @@ FamilyRoom& FamilyRoom::operator=(const FamilyRoom& other)
 	return *this;
 }
 
+void FamilyRoom::serialize(std::ostream& os) const
+{
+	os << roomType << " ";
+	Room::serialize(os);
+	os << numberOfChildBeds << std::endl;
+}
+
+void FamilyRoom::deserialize(std::istream& is)
+{
+	Room::deserialize(is);
+	is >> numberOfChildBeds;
+}
+
 FamilyRoom::~FamilyRoom()
 {
 }

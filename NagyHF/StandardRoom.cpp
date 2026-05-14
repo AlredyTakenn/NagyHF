@@ -27,6 +27,18 @@ StandardRoom& StandardRoom::operator=(const StandardRoom& other)
 	return *this;
 }
 
+void StandardRoom::serialize(std::ostream& os) const
+{
+	os << roomType << " ";
+	Room::serialize(os);
+	os << std::endl;
+}
+
+void StandardRoom::deserialize(std::istream& is)
+{
+	Room::deserialize(is);
+}
+
 StandardRoom::~StandardRoom()
 {
 

@@ -1,15 +1,16 @@
 #pragma once
 #include <string>
-class Room
+#include "Serializable.h"
+class Room : 
+	public Serializable
 {
 protected:
-	unsigned roomNumber;
 	std::string roomType;
+	unsigned roomNumber;
 	unsigned numberOfBeds;
 	double roomBasePrice;
-	std::string* extras;
 	unsigned extrasCount;
-
+	std::string* extras;
 public:
 	Room(unsigned pnum, std::string ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount);
 	Room(const Room& other);
@@ -23,6 +24,9 @@ public:
 
 	virtual double CalculatePrice() const = 0;
 	Room& operator=(const Room& other);
+
+	void serialize(std::ostream& os) const;
+	void deserialize(std::istream& is);
 
 	virtual ~Room();
 

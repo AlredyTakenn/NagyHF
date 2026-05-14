@@ -37,3 +37,17 @@ void Guest::SetId(string pId)
 {
     Id = pId;
 }
+
+void Guest::serialize(std::ostream& os) const
+{
+    os << name << " " << Id << std::endl;
+}
+
+void Guest::deserialize(std::istream& is)
+{
+    string tempName, tempId;
+    is >> tempName, tempId;
+
+    SetName(tempName);
+    SetId(tempId);
+}

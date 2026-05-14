@@ -71,6 +71,33 @@ Room& Room::operator=(const Room& other)
 	return *this;
 }
 
+void Room::serialize(std::ostream& os) const
+{
+	os << roomNumber << " " << numberOfBeds << " " << roomBasePrice << " ";
+	os << extrasCount << " ";
+	for (unsigned i = 0; i < extrasCount; i++)
+	{
+		os << extras[i] << " ";
+	}
+}
+
+void Room::deserialize(std::istream& is)
+{
+	is >> roomNumber >> numberOfBeds >> roomBasePrice;
+	unsigned newExtrasCount;
+	is >> newExtrasCount;
+	if (extras != nullptr)
+	{
+		delete[] extras;
+	}
+	extrasCount = newExtrasCount;
+	extras = new std::string[extrasCount];
+	for (unsigned i = 0; i < extrasCount; i++)
+	{
+		is >> extras[i];
+	}
+}
+
 Room::~Room()
 {
 	delete[] extras;

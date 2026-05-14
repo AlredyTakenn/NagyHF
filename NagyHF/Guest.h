@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-class Guest
+#include "Serializable.h"
+class Guest: public Serializable
 {
 private:
 	std::string name;
@@ -15,5 +16,8 @@ public:
 
 	void SetName(std::string pname);
 	void SetId(std::string pId);
+
+	void serialize( std::ostream& os) const override;
+	void deserialize(std::istream& is) override;
 };
 

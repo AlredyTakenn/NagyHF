@@ -227,6 +227,47 @@ Reservation& Reservation::operator=(const Reservation& other)
 	return *this;
 }
 
+void Reservation::serialize(std::ostream& os) const
+{
+	os << timeFrom << " " << timeTo << " " << here << " " << reservedRoom->GetRoomNumber() << " ";
+	os << guestCount << " ";
+	for (unsigned i = 0; i < guestCount; i++)
+	{
+		guests[i].serialize(os);
+	}
+	os << extraServicesCount << " ";
+	for (unsigned i = 0; i < extraServicesCount; i++)
+	{
+		os << extraServices[i] << " ";
+	}
+	os << endl;
+}
+
+void Reservation::deserialize(std::istream& is)
+{
+	unsigned roomNum, newGuestCount;
+	is >> chrono::parse("%Y.%m.%d.", timeFrom);
+	is >> chrono::parse("%Y.%m.%d.", timeTo);
+	is >> here >> roomNum;
+	is >> newGuestCount;
+	delete[] guests;
+	guestCount = newGuestCount;
+	guests = new Guest[guestCount];
+	for (unsigned i = 0; i < guestCount; i++)
+	{
+		guests[i].deserialize(is);
+	}
+	unsigned newExtraCount;
+	is >> newExtraCount;
+	delete[] extraServices;
+	extraServicesCount = newExtraCount;
+	extraServices = new std::string[extraServicesCount];
+	for (unsigned i = 0; i < extraServicesCount; i++)
+	{
+		is >> extraServices[i];
+	}
+}
+
 Reservation::~Reservation()
 {
 	delete[] guests;

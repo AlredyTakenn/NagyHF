@@ -14,6 +14,9 @@ public:
 
     LuxuryRoom& operator=(const LuxuryRoom& other);
 
+    void serialize(std::ostream& os) const;
+    void deserialize(std::istream& is);
+
     ~LuxuryRoom();
 };
 

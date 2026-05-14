@@ -30,6 +30,19 @@ LuxuryRoom& LuxuryRoom::operator=(const LuxuryRoom& other)
 	return *this;
 }
 
+void LuxuryRoom::serialize(std::ostream& os) const
+{
+	os << roomType << " ";
+	Room::serialize(os);
+	os << hasJacuzzi << " " << hasMassageChair << std::endl;
+}
+
+void LuxuryRoom::deserialize(std::istream& is)
+{
+	Room::deserialize(is);
+	is >> hasJacuzzi >> hasMassageChair;
+}
+
 LuxuryRoom::~LuxuryRoom()
 {
 }

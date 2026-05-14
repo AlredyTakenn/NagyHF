@@ -1,14 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Room">
-    <Position X="6.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAIAAAAAAEAABgABAAAAAAAAAEgEIABAAkQAAABgA=</HashCode>
-      <FileName>Room.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="StandardRoom">
-    <Position X="3.25" Y="10" Width="1.5" />
+    <Position X="3.25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAIAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
       <FileName>StandardRoom.h</FileName>
@@ -17,19 +10,19 @@
   <Class Name="Guest">
     <Position X="9.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAIAAAAAAAAAAAAAAEAAAAAAAAQAIABAg=</HashCode>
+      <HashCode>AAACAAAAAAAAIAAAAAAAIAAAAAAEAAAAQAAAQAIABAg=</HashCode>
       <FileName>Guest.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LuxuryRoom">
-    <Position X="9.75" Y="10" Width="1.5" />
+    <Position X="9" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAQAAAAAAQAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
       <FileName>LuxuryRoom.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FamilyRoom">
-    <Position X="6.5" Y="10" Width="1.5" />
+    <Position X="6.25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAIAAAAAAAAAAAAQIAAAAgAAAAAAA=</HashCode>
       <FileName>FamilyRoom.h</FileName>
@@ -38,7 +31,7 @@
   <Class Name="Reservation">
     <Position X="1" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEgAAQCBAEABQAEkAIACQBAAgAAACCQQAEgKABBEQA=</HashCode>
+      <HashCode>AAEgAAQCBAEABQAEkAIAKQBAAgAAACCQQAEgKABBEQA=</HashCode>
       <FileName>Reservation.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -54,6 +47,20 @@
     <TypeIdentifier>
       <HashCode>AAAAQEACABAADACAAAIAAAAAACAAQACAAAAgAAAAAAA=</HashCode>
       <FileName>Hotel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Serializable">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAgAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Serializable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room">
+    <Position X="5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAEAABgABAAIAAAAAAEgEIARAAkQAAABgA=</HashCode>
+      <FileName>Room.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

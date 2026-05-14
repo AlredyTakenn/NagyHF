@@ -13,6 +13,9 @@ public:
 
 	FamilyRoom& operator=(const FamilyRoom& other);
 
+	void serialize(std::ostream& os) const;
+	void deserialize(std::istream& is);
+
 	~FamilyRoom();
 };
 

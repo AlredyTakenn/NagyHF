@@ -3,17 +3,19 @@
 #include <string>
 #include "Guest.h"
 #include "Room.h"
-class Reservation
+#include "Serializable.h"
+class Reservation: public Serializable
 {
 private:
 	std::chrono::year_month_day timeFrom;
 	std::chrono::year_month_day timeTo;
-	Guest* guests;
-	unsigned guestCount;
-	std::string* extraServices;
-	unsigned extraServicesCount;
-	Room* reservedRoom;
 	bool here;
+	Room* reservedRoom;
+	unsigned guestCount;
+	Guest* guests;
+	unsigned extraServicesCount;
+	std::string* extraServices;
+
 public:
 	Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
 	Reservation(const Reservation& other);
@@ -45,6 +47,9 @@ public:
 	bool operator>=(const Reservation& jobbop) const;
 
 	Reservation& operator=(const Reservation& other);
+
+	void serialize(std::ostream& os) const;
+	void deserialize(std::istream& is);
 
 	~Reservation();
 
