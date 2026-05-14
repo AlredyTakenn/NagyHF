@@ -15,6 +15,7 @@ private:
 	Guest* guests;
 	unsigned extraServicesCount;
 	std::string* extraServices;
+	unsigned lastReadRoomNumber;
 
 public:
 	Reservation();
@@ -29,6 +30,7 @@ public:
 	Room* GetReservedRoom() const;
 	bool GetHere() const;
 	unsigned GetExtraServicesCount() const;
+	unsigned GetLastReadRoomNumber()const;
 
 	void SetTimeFrom(std::chrono::year_month_day pfrom);
 	void SetTimeTo(std::chrono::year_month_day pto);

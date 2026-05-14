@@ -78,6 +78,11 @@ unsigned Reservation::GetExtraServicesCount() const
 	return extraServicesCount;
 }
 
+unsigned Reservation::GetLastReadRoomNumber() const
+{
+	return lastReadRoomNumber;
+}
+
 void Reservation::SetTimeFrom(chrono::year_month_day pfrom)
 {
 	timeFrom = pfrom;
@@ -251,10 +256,10 @@ void Reservation::serialize(std::ostream& os) const
 
 void Reservation::deserialize(std::istream& is)
 {
-	unsigned roomNum, newGuestCount;
+	unsigned newGuestCount;
 	is >> chrono::parse("%F", timeFrom);
 	is >> chrono::parse("%F", timeTo);
-	is >> here >> roomNum;
+	is >> here >> lastReadRoomNumber;
 	is >> newGuestCount;
 	delete[] guests;
 	guestCount = newGuestCount;

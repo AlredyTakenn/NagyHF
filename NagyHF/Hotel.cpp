@@ -35,16 +35,30 @@ void Hotel::LoadRooms(std::istream& is)
 
 void Hotel::LoadGuests(std::istream& is)
 {
-	Guest* temp = new Guest();
-	temp->deserialize(is);
-	guestList.add(*temp);
+	Guest temp;
+	temp.deserialize(is);
+	guestList.add(temp);
 }
 
 void Hotel::LoadReservations(std::istream& is)
 {
-	Reservation* temp = new Reservation();
-	temp->deserialize(is);
-	reservationList.add(*temp);
+	Reservation temp;
+	temp.deserialize(is);
+	unsigned targetRoomNum = temp.GetLastReadRoomNumber();
+	Room* linkedRoom = nullptr;
+	for (unsigned i = 0; i < roomList.getElementCount(); i++) 
+	{
+		if (roomList[i]->GetRoomNumber() == targetRoomNum) 
+		{
+			linkedRoom = roomList[i];
+			break;
+		}
+	}
+	if (linkedRoom != nullptr) 
+	{
+		temp.SetReservedRoom(linkedRoom);
+		reservationList.add(temp);
+	}
 }
 
 void Hotel::AddRoom(Room* proom)
@@ -240,9 +254,9 @@ void Hotel::LoadFromFile(const std::string fileName)
 	{
 		throw std::runtime_error("Hiba: A fájl megnyitása nem sikerült!");
 	}
-	while (!is.eof())
+	while (is >> tag >> count)
 	{
-		is >> tag >> count;
+		
 		if (tag == "[ROOMS]")
 		{
 			for (unsigned i = 0; i < count; i++)
