@@ -32,6 +32,21 @@ void Hotel::LoadRooms(std::istream& is)
 		throw std::invalid_argument("Hiba: Nincs ilyen szobatípus: " + type);
 	}
 }
+
+void Hotel::LoadGuests(std::istream& is)
+{
+	Guest* temp = new Guest();
+	temp->deserialize(is);
+	guestList.add(*temp);
+}
+
+void Hotel::LoadReservations(std::istream& is)
+{
+	Reservation* temp = new Reservation();
+	temp->deserialize(is);
+	reservationList.add(*temp);
+}
+
 void Hotel::AddRoom(Room* proom)
 {
 	roomList.add(proom);
@@ -199,20 +214,56 @@ void Hotel::SaveToFile(const std::string fileName) const
 	{
 		throw std::runtime_error("Hiba: A fájl megnyitása nem sikerült!");
 	}
-	os << "[ROOMS]" << roomList.getElementCount() << std::endl;
+	os << "[ROOMS] " << roomList.getElementCount() << std::endl;
 	for (unsigned i = 0; i < roomList.getElementCount(); i++)
 	{
 		roomList[i]->serialize(os);
 	}
-	os << "[GUESTS]" << guestList.getElementCount() << std::endl;
+	os << "[GUESTS] " << guestList.getElementCount() << std::endl;
 	for (unsigned i = 0; i < guestList.getElementCount(); i++)
 	{
 		guestList[i].serialize(os);
 	}
-	os << "[RESERVATIONS]" << reservationList.getElementCount() << std::endl;
+	os << "[RESERVATIONS] " << reservationList.getElementCount() << std::endl;
 	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
 	{
 		reservationList[i].serialize(os);
+	}
+}
+
+void Hotel::LoadFromFile(const std::string fileName)
+{
+	std::ifstream is(fileName);
+	std::string tag;
+	unsigned count;
+	if (!is.is_open())
+	{
+		throw std::runtime_error("Hiba: A fájl megnyitása nem sikerült!");
+	}
+	while (!is.eof())
+	{
+		is >> tag >> count;
+		if (tag == "[ROOMS]")
+		{
+			for (unsigned i = 0; i < count; i++)
+			{
+				LoadRooms(is);
+			}
+		}
+		else if(tag == "[GUESTS]")
+		{
+			for (unsigned i = 0; i < count; i++)
+			{
+				LoadGuests(is);
+			}
+		}
+		else if (tag == "[RESERVATIONS]")
+		{
+			for (unsigned i = 0; i < count; i++)
+			{
+				LoadReservations(is);
+			}
+		}
 	}
 }
 

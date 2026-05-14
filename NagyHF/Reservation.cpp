@@ -252,8 +252,8 @@ void Reservation::serialize(std::ostream& os) const
 void Reservation::deserialize(std::istream& is)
 {
 	unsigned roomNum, newGuestCount;
-	is >> chrono::parse("%Y.%m.%d.", timeFrom);
-	is >> chrono::parse("%Y.%m.%d.", timeTo);
+	is >> chrono::parse("%F", timeFrom);
+	is >> chrono::parse("%F", timeTo);
 	is >> here >> roomNum;
 	is >> newGuestCount;
 	delete[] guests;
