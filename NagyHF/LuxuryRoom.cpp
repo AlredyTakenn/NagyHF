@@ -1,5 +1,10 @@
 #include "LuxuryRoom.h"
 
+LuxuryRoom::LuxuryRoom():
+	Room(0,"Luxury", 0,0,nullptr,0)
+{
+}
+
 LuxuryRoom::LuxuryRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount, bool pjacuzzi, bool pmassageChair):
 	Room(pnum, "Luxury", pbed, pprice, pextra, pextracount), hasJacuzzi(pjacuzzi), hasMassageChair(pmassageChair)
 {

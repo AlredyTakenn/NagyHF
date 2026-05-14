@@ -4,6 +4,7 @@ class StandardRoom :
     public Room
 {
 public:
+    StandardRoom();
     StandardRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount);
     StandardRoom(const StandardRoom& other);
 

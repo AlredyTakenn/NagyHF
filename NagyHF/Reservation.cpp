@@ -2,6 +2,12 @@
 #include "Guest.h"
 using namespace std;
 
+Reservation::Reservation()
+	:timeFrom(std::chrono::year(1970) / 1 / 1), timeTo(std::chrono::year(1970) / 1 / 1),guests(nullptr), guestCount(0),extraServices(nullptr), extraServicesCount(0), reservedRoom(nullptr), here(false)
+{
+
+}
+
 Reservation::Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom)
 	:timeFrom(pfrom), timeTo(pto), guestCount(pguestcount), extraServicesCount(pextraservicescount), reservedRoom(proom), here(false)
 {

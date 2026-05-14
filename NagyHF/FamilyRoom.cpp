@@ -1,5 +1,10 @@
 #include "FamilyRoom.h"
 
+FamilyRoom::FamilyRoom():
+	Room(0, "Family", 0, 0, nullptr, 0)
+{
+}
+
 FamilyRoom::FamilyRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount, unsigned pchildBeds):
 	Room(pnum, "Family", pbed, pprice, pextra, pextracount), numberOfChildBeds(pchildBeds)
 {

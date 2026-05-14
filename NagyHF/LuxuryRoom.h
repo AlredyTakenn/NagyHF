@@ -7,6 +7,7 @@ private:
 	bool hasJacuzzi;
 	bool hasMassageChair;
 public:
+    LuxuryRoom();
     LuxuryRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra,unsigned pextracount, bool pjacuzzi, bool pmassageChair);
     LuxuryRoom(const LuxuryRoom& other);
 

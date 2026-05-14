@@ -4,12 +4,17 @@
 #include "Reservation.h"
 #include "Room.h"
 #include <string>
+#include <iostream>
+
 class Hotel
 {
 private:
 	Container<Room*> roomList;
 	Container<Guest> guestList;
 	Container<Reservation> reservationList;
+	void LoadRooms(std::istream& is);
+	void LoadGuests(std::istream& is);
+	void LoadReservations(std::istream& is);
 public:
 	Hotel() = default;
 	Hotel(const Hotel& other) = delete;
@@ -23,6 +28,8 @@ public:
 	void CheckOut(std::string searchGuestId);
 	void GenerateInvoice(std::string searchGuestId);
 
+	void SaveToFile(const std::string fileName)const;
+	void LoadFromFile(const std::string fileName);
 	~Hotel();
 };
 

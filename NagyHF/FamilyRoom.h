@@ -6,6 +6,7 @@ class FamilyRoom :
 private:
 	unsigned numberOfChildBeds;
 public:
+	FamilyRoom();
 	FamilyRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra,unsigned pextracount, unsigned pchildBeds);
 	FamilyRoom(const FamilyRoom& other);
 

@@ -1,7 +1,37 @@
 #include "Hotel.h"
+#include "StandardRoom.h"
+#include "FamilyRoom.h"
+#include "LuxuryRoom.h"
 #include <stdexcept>
-#include <iostream>
+#include <fstream>
+void Hotel::LoadRooms(std::istream& is)
+{
+	std::string type;
+	is >> type;
+	Room* temp = nullptr;
+	if (type == "Standard")
+	{
+		temp = new StandardRoom();
 
+	}
+	else if (type == "Family")
+	{
+		temp = new FamilyRoom();
+	}
+	else if (type == "Luxury")
+	{
+		temp = new LuxuryRoom();
+	}
+	if (temp != nullptr)
+	{
+		temp->deserialize(is);
+		roomList.add(temp);
+	}
+	else
+	{
+		throw std::invalid_argument("Hiba: Nincs ilyen szobatípus: " + type);
+	}
+}
 void Hotel::AddRoom(Room* proom)
 {
 	roomList.add(proom);
@@ -15,6 +45,10 @@ void Hotel::RegisterGuest(std::string pname, std::string pId)
 
 void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber)
 {
+	if (pfrom > pto)
+	{
+		throw std::invalid_argument("Hiba: A távozás idõpontja nem lehet korábban mint az érkezésé!");
+	}
 	Room* foundRoom = nullptr;
 	for (unsigned i = 0; i < roomList.getElementCount(); i++)
 	{
@@ -26,7 +60,7 @@ void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year
 	}
 	if (foundRoom == nullptr)
 	{
-		throw std::invalid_argument("Hiba: Nem lÃ©tezik ilyen szobaszÃ¡m a szÃ¡llodÃ¡ban!");
+		throw std::invalid_argument("Hiba: Nem létezik ilyen szobaszám a szállodában!");
 	}
 	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
 	{
@@ -34,13 +68,13 @@ void Hotel::BookReservation(std::chrono::year_month_day pfrom, std::chrono::year
 		{
 			if (pfrom < reservationList[i].GetTimeTo() && pto > reservationList[i].GetTimeFrom())
 			{
-				throw std::logic_error("Hiba: Erre az idÅ‘szakra foglalt a szoba!");
+				throw std::logic_error("Hiba: Erre az idõszakra foglalt a szoba!");
 			}
 		}
 	}
 	Reservation newRes(pfrom, pto, pguests, pguestcount, pextraservices, pextraservicescount, foundRoom);
 	reservationList.add(newRes);
-	std::cout << "Sikeres foglalÃ¡s a(z)" << requestedRoomNumber << ". szobÃ¡ra!" << std::endl;
+	std::cout << "Sikeres foglalás a(z)" << requestedRoomNumber << ". szobára!" << std::endl;
 }
 
 void Hotel::CheckIn(std::string searchGuestId)
@@ -71,7 +105,6 @@ void Hotel::CheckIn(std::string searchGuestId)
 		throw std::invalid_argument("Hiba: Nincs foglalas a megadott igazolvanyszammal!");
 	}
 }
-// mivan ha ugyan az az ember kettÅ‘t foglalt
 
 void Hotel::CheckOut(std::string searchGuestId)
 {
@@ -85,7 +118,7 @@ void Hotel::CheckOut(std::string searchGuestId)
 			if (currentGuests[j].GetId() == searchGuestId && reservationList[i].GetHere() == true)
 			{
 				reservationList[i].CheckOut();
-				std::cout << "Sikeres kijelentkezÃ©s!" << std::endl;
+				std::cout << "Sikeres kijelentkezés!" << std::endl;
 				found = true;
 				break;
 			}
@@ -116,15 +149,15 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 			
 			if (currentGuests[j].GetId() == searchGuestId && currentRes.GetHere() == true)
 			{
-				std::cout << "A(z) " << searchGuestId << " igazolvÃ¡nyszÃ¡mÃº vendÃ©g vÃ©gszÃ¡mlÃ¡ja:" << std::endl;
+				std::cout << "A(z) " << searchGuestId << " igazolványszámú vendég végszámlája:" << std::endl;
 
 				double napiAr = currentRes.GetReservedRoom()->CalculatePrice();
-				std::cout << "A tartÃ³zkodÃ¡si idÅ‘: " << (currentRes.Invoice() / napiAr) << " Ã©jszaka." << std::endl;
-				std::cout << "A szoba Ã¡ra/nap: " << napiAr << std::endl;
+				std::cout << "A tartózkodási idõ: " << (currentRes.Invoice() / napiAr) << " éjszaka." << std::endl;
+				std::cout << "A szoba ára/nap: " << napiAr << std::endl;
 
-				std::cout << "IgÃ©nybevett szolgÃ¡ltatÃ¡sok:" << std::endl;
+				std::cout << "Igénybevett szolgáltatások:" << std::endl;
 
-				std::cout << "  (Szoba extrÃ¡k):" << std::endl;
+				std::cout << "  (Szoba extrák):" << std::endl;
 				const unsigned extrasCount = currentRes.GetReservedRoom()->GetExtrasCount();
 				const std::string* roomExtras = currentRes.GetReservedRoom()->GetExtras();
 				for (unsigned k = 0; k < extrasCount; k++) 
@@ -132,7 +165,7 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 					std::cout << "    - " << roomExtras[k] << std::endl;
 				}
 
-				std::cout << "  (FoglalÃ¡s extrÃ¡k):" << std::endl;
+				std::cout << "  (Foglalás extrák):" << std::endl;
 				const unsigned resExtrasCount = currentRes.GetExtraServicesCount();
 				const std::string* resExtras = currentRes.GetExtraServices();
 				for (unsigned k = 0; k < resExtrasCount; k++)
@@ -141,7 +174,7 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 				}
 
 				std::cout << "-----------------------------------" << std::endl;
-				std::cout << "Ã–SSZESEN FIZETENDÅ: " << currentRes.Invoice() << " HUF" << std::endl;
+				std::cout << "ÖSSZESEN FIZETENDÕ: " << currentRes.Invoice() << " HUF" << std::endl;
 
 				found = true;
 				break;
@@ -156,6 +189,30 @@ void Hotel::GenerateInvoice(std::string searchGuestId)
 	if (!found)
 	{
 		throw std::invalid_argument("Hiba: Nincs aktiv foglalas a megadott igazolvanyszammal!");
+	}
+}
+
+void Hotel::SaveToFile(const std::string fileName) const
+{
+	std::ofstream os(fileName);
+	if (!os.is_open())
+	{
+		throw std::runtime_error("Hiba: A fájl megnyitása nem sikerült!");
+	}
+	os << "[ROOMS]" << roomList.getElementCount() << std::endl;
+	for (unsigned i = 0; i < roomList.getElementCount(); i++)
+	{
+		roomList[i]->serialize(os);
+	}
+	os << "[GUESTS]" << guestList.getElementCount() << std::endl;
+	for (unsigned i = 0; i < guestList.getElementCount(); i++)
+	{
+		guestList[i].serialize(os);
+	}
+	os << "[RESERVATIONS]" << reservationList.getElementCount() << std::endl;
+	for (unsigned i = 0; i < reservationList.getElementCount(); i++)
+	{
+		reservationList[i].serialize(os);
 	}
 }
 

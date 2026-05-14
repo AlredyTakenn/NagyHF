@@ -6,12 +6,16 @@ Guest::Guest()
 
 }
 
-Guest::Guest(string pname, string pId):name(pname), Id(pId)
+Guest::Guest(string pname, string pId)
 {
+    SetName(pname);
+    SetId(pId);
 }
 
-Guest::Guest(const Guest& other) :name(other.name), Id(other.Id)
+Guest::Guest(const Guest& other)
 {
+    SetName(other.name);
+    SetId(other.Id);
 }
 
 string Guest::GetName() const
@@ -35,6 +39,10 @@ void Guest::SetName(string pname)
 
 void Guest::SetId(string pId)
 {
+    if (pId.empty())
+    {
+        throw invalid_argument("Az igazolványszám nem lehet üres.");
+    }
     Id = pId;
 }
 
@@ -46,7 +54,7 @@ void Guest::serialize(std::ostream& os) const
 void Guest::deserialize(std::istream& is)
 {
     string tempName, tempId;
-    is >> tempName, tempId;
+    is >> tempName >> tempId;
 
     SetName(tempName);
     SetId(tempId);

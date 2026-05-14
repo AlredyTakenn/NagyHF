@@ -1,5 +1,9 @@
 #include "StandardRoom.h"
 
+StandardRoom::StandardRoom():
+	Room(0,"Standard", 0,0,nullptr,0)
+{
+}
 StandardRoom::StandardRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount):
 	Room(pnum, "Standard", pbed, pprice, pextra, pextracount)
 {

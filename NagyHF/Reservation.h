@@ -17,6 +17,7 @@ private:
 	std::string* extraServices;
 
 public:
+	Reservation();
 	Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom);
 	Reservation(const Reservation& other);
 
