@@ -134,7 +134,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reservation.cpp" />
     <ClCompile Include="Room.cpp" />
-    <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="StandardRoom.cpp" />
   </ItemGroup>
   <ItemGroup>

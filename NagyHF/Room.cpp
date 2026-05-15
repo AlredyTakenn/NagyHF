@@ -1,5 +1,6 @@
 #include "Room.h"
 
+//paraméteres konstruktor
 Room::Room(unsigned pnum,const std::string& ptype, unsigned pbed, double pprice, std::string* pextra, unsigned pextracount):
 	roomNumber(pnum), roomType(ptype), numberOfBeds(pbed), roomBasePrice(pprice), extrasCount(pextracount)
 {
@@ -8,8 +9,12 @@ Room::Room(unsigned pnum,const std::string& ptype, unsigned pbed, double pprice,
 	{
 		extras[i] = pextra[i];
 	}
+	if (pprice < 0.0) {
+		throw std::invalid_argument("Hiba: A szoba ára nem lehet negatív!");
+	}
 }
 
+//másoló konstruktor
 Room::Room(const Room& other):
 	roomNumber(other.roomNumber), roomType(other.roomType), numberOfBeds(other.numberOfBeds), roomBasePrice(other.roomBasePrice), extrasCount(other.extrasCount)
 {
@@ -20,6 +25,7 @@ Room::Room(const Room& other):
 	}
 }
 
+//getterek
 unsigned Room::GetRoomNumber() const
 {
 	return roomNumber;
@@ -50,6 +56,7 @@ const unsigned Room::GetExtrasCount() const
 	return extrasCount;
 }
 
+//értékadó operátor
 Room& Room::operator=(const Room& other)
 {
 	if (this == &other)
@@ -71,6 +78,7 @@ Room& Room::operator=(const Room& other)
 	return *this;
 }
 
+//általános output stremre kiíró
 void Room::serialize(std::ostream& os) const
 {
 	os << roomNumber << " " << numberOfBeds << " " << roomBasePrice << " ";
@@ -81,6 +89,7 @@ void Room::serialize(std::ostream& os) const
 	}
 }
 
+//álltalános input streamről beolvasó
 void Room::deserialize(std::istream& is)
 {
 	is >> roomNumber >> numberOfBeds >> roomBasePrice;

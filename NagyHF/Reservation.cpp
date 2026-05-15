@@ -2,16 +2,18 @@
 #include "Guest.h"
 using namespace std;
 
+//default konstruktor
 Reservation::Reservation()
-	:timeFrom(std::chrono::year(1970) / 1 / 1), timeTo(std::chrono::year(1970) / 1 / 1),guests(nullptr), guestCount(0),extraServices(nullptr), extraServicesCount(0), reservedRoom(nullptr), here(false)
+	:timeFrom(std::chrono::year(1970) / 1 / 1), timeTo(std::chrono::year(1970) / 1 / 1),guests(nullptr), guestCount(0),extraServices(nullptr), extraServicesCount(0), reservedRoom(nullptr), here(false), lastReadRoomNumber(0)
 {
 
 }
 
-Reservation::Reservation(std::chrono::year_month_day pfrom, std::chrono::year_month_day pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom)
-	:timeFrom(pfrom), timeTo(pto), guestCount(pguestcount), extraServicesCount(pextraservicescount), reservedRoom(proom), here(false)
+//paraméteres konstruktor
+Reservation::Reservation(const std::chrono::year_month_day& pfrom, const std::chrono::year_month_day& pto, Guest* pguest, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, Room* proom)
+	:timeFrom(pfrom), timeTo(pto), guestCount(pguestcount), extraServicesCount(pextraservicescount), reservedRoom(proom), here(false), lastReadRoomNumber(0)
 {
-	guests = new Guest[guestCount];
+	guests = new Guest[guestCount];					//dinamikus vendég és extra szolgáltatás tömb
 	for (unsigned i = 0; i < guestCount; i++)
 	{
 		guests[i] = pguest[i];
@@ -23,8 +25,9 @@ Reservation::Reservation(std::chrono::year_month_day pfrom, std::chrono::year_mo
 	}
 }
 
+//másoló konstruktor
 Reservation::Reservation(const Reservation& other):
-	timeFrom(other.timeFrom), timeTo(other.timeTo), guestCount(other.guestCount), extraServicesCount(other.extraServicesCount), reservedRoom(other.reservedRoom), here(other.here)
+	timeFrom(other.timeFrom), timeTo(other.timeTo), guestCount(other.guestCount), extraServicesCount(other.extraServicesCount), reservedRoom(other.reservedRoom), here(other.here), lastReadRoomNumber(other.lastReadRoomNumber)
 {
 	guests = new Guest[guestCount];
 	for (unsigned i = 0; i < guestCount; i++)
@@ -38,6 +41,7 @@ Reservation::Reservation(const Reservation& other):
 	}
 }
 
+//Getterek
 std::chrono::year_month_day Reservation::GetTimeFrom() const
 {
 	return timeFrom;
@@ -83,12 +87,22 @@ unsigned Reservation::GetLastReadRoomNumber() const
 	return lastReadRoomNumber;
 }
 
-void Reservation::SetTimeFrom(chrono::year_month_day pfrom)
+//kiszámolja a foglalás hosszát napokban
+unsigned Reservation::GetDuration() const
+{
+	chrono::sys_days from = timeFrom;
+	chrono::sys_days to = timeTo;
+	chrono::days duration = to - from;
+	return duration.count();
+}
+
+//setterek
+void Reservation::SetTimeFrom(const chrono::year_month_day& pfrom)
 {
 	timeFrom = pfrom;
 }
 
-void Reservation::SetTimeTo(chrono::year_month_day pto)
+void Reservation::SetTimeTo(const chrono::year_month_day& pto)
 {
 	timeTo = pto;
 }
@@ -126,16 +140,15 @@ void Reservation::SetReservedRoom(Room* proom)
 	reservedRoom = proom;
 }
 
+//kiszámolja a foglalás teljes összegét
 double Reservation::Invoice() const
 {
 	double pricePerDay = reservedRoom->CalculatePrice();
-	chrono::sys_days from = timeFrom;
-	chrono::sys_days to = timeTo;
-	chrono::days duration = to - from;
-	double totalPrice = pricePerDay * duration.count() + pricePerDay*0.05*extraServicesCount;
+	double totalPrice = pricePerDay * GetDuration() + pricePerDay*0.05*extraServicesCount;
 	return totalPrice;
 }
 
+//speciális setterek a here változónak
 void Reservation::CheckIn()
 {
 	here = true;
@@ -146,6 +159,7 @@ void Reservation::CheckOut()
 	here = false;
 }
 
+//végösszeg összehasonlító operátorok
 bool Reservation::operator==(const Reservation& jobbop) const
 {
 	double thisPrice = this->Invoice();
@@ -201,6 +215,7 @@ bool Reservation::operator>=(const Reservation& jobbop) const
 	return false;
 }
 
+//értékadó operátor
 Reservation& Reservation::operator=(const Reservation& other)
 {
 	if (this == &other)
@@ -238,6 +253,7 @@ Reservation& Reservation::operator=(const Reservation& other)
 	return *this;
 }
 
+//álltalános output streamre kiíró
 void Reservation::serialize(std::ostream& os) const
 {
 	os << timeFrom << " " << timeTo << " " << here << " " << reservedRoom->GetRoomNumber() << " ";
@@ -254,6 +270,7 @@ void Reservation::serialize(std::ostream& os) const
 	os << endl;
 }
 
+//álltalános input streamről beolvasó
 void Reservation::deserialize(std::istream& is)
 {
 	unsigned newGuestCount;

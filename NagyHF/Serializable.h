@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-class Serializable
+class Serializable				//álltalánosított streamről beolvasó és kiíró függvény virtuális tagokkal
 {
 public:
 	virtual void serialize(std::ostream& os) const = 0;

@@ -1,13 +1,14 @@
 #pragma once
 #include <stdexcept>
 template <typename T>
-class Container
+class Container						//Általánosítot dinamikus tömb, ez tárolja a szobákat, vendégeket és foglalásokat
 {
 private:
-	T* elements;
-	unsigned elementCount;
-	unsigned capacity;
+	T* elements;					//elemek tömbjére mutató
+	unsigned elementCount;			//elemszám	
+	unsigned capacity;				//maximális kapacitás
 public:
+	//Konstruktorok
 	Container(unsigned pcapacity = 50)
 	{
 		capacity = pcapacity;
@@ -24,6 +25,7 @@ public:
 			elements[i] = other.elements[i];
 	}
 
+	//értékadó operátor
 	Container& operator=(const Container& other)
 	{
 		if (this != &other)
@@ -38,9 +40,10 @@ public:
 		return *this;
 	}
 
+	//új adatot ad hozzá a tömbhöz
 	void add(const T& newElement)
 	{
-		if (capacity == elementCount)
+		if (capacity == elementCount)					//Ha megtelt a tömb akkor megnövelem a méretét a duplájára
 		{
 			if (capacity == 0)
 			{
@@ -62,6 +65,7 @@ public:
 		elementCount++;
 	}
 
+	//Getterek
 	unsigned getCapacity() const
 	{
 		return capacity;
