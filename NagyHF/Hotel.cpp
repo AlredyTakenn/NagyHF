@@ -113,6 +113,46 @@ void Hotel::BookReservation(const std::chrono::year_month_day& pfrom,const std::
 	std::cout << "Sikeres foglalás a(z)" << requestedRoomNumber << ". szobára!" << std::endl;
 }
 
+//szabad szoba keresõ adott idõszakra
+void Hotel::SearchFreeRoom(const std::chrono::year_month_day& searchFrom, const std::chrono::year_month_day& searchTo) const
+{
+	if (searchFrom > searchTo)
+	{
+		throw std::invalid_argument("Hiba: A keresés vége nem lehet korábban, mint a kezdete!");
+	}
+	std::cout << "Szabad szobák " << searchFrom << " és " << searchTo << "között:" << std::endl;
+	bool foundAny = false;
+	for (unsigned i = 0; i < roomList.getElementCount(); i++)
+	{
+		Room* temp = roomList[i];
+		bool isFree = true;
+		for (unsigned j = 0; i < reservationList.getElementCount(); j++)
+		{
+			if (temp->GetRoomNumber() == reservationList[i].GetReservedRoom()->GetRoomNumber())
+			{
+				if (searchFrom < reservationList[i].GetTimeTo()&& searchTo > reservationList[i].GetTimeFrom())
+				{
+					isFree = false;
+					break;
+				}
+			}
+		}
+		if (isFree)
+		{
+			std::cout << " - Szobaszam: " << temp->GetRoomNumber()
+				<< " (Tipus: " << temp->GetRoomType()
+				<< ", Agyak: " << temp->GetNumberOfBeds()
+				<< ", Alapar: " << temp->GetRoomBasePrice() << " HUF)" << std::endl;
+			foundAny = true;
+		}
+	}
+	if (!foundAny)
+	{
+		std::cout << "Sajnos nincs szabad szoba a megadott idõpontra!" << std::endl;
+	}
+
+}
+
 //bejelentkezés
 void Hotel::CheckIn(const std::string& searchGuestId)
 {
@@ -260,6 +300,10 @@ void Hotel::SaveToFile(const std::string& fileName) const
 //fájlból beolvasás
 void Hotel::LoadFromFile(const std::string& fileName)
 {
+	if (fileName.empty())
+	{
+		throw std::invalid_argument("Hiba: a fájl neve nem lehet üres!");
+	}
 	std::ifstream is(fileName);
 	std::string tag;
 	unsigned count;

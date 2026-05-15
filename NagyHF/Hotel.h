@@ -26,6 +26,9 @@ public:
 	void RegisterGuest(const std::string& pname, const std::string& pId);
 	void BookReservation(const std::chrono::year_month_day& pfrom, const std::chrono::year_month_day& pto, Guest* pguests, unsigned pguestcount, std::string* pextraservices, unsigned pextraservicescount, unsigned requestedRoomNumber);
 
+	//szabad szoba keresés adott időszakra
+	void SearchFreeRoom(const std::chrono::year_month_day& searchFrom, const std::chrono::year_month_day& searchTo) const;
+
 	//Ki- és bejelentkezés, végszámla kiállítás
 	void CheckIn(const std::string& searchGuestId);
 	void CheckOut(const std::string& searchGuestId);
