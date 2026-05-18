@@ -21,7 +21,7 @@ StandardRoom::StandardRoom(const StandardRoom& other):
 //nai ár kiszámító
 double StandardRoom::CalculatePrice() const
 {
-	double price = GetRoomBasePrice() + GetExtrasCount() * GetRoomBasePrice() * 0.1 + (GetNumberOfBeds() > 2 ? GetNumberOfBeds() - 2 : 0) * GetRoomBasePrice * 0.05;
+	double price = GetRoomBasePrice() + GetExtrasCount() * GetRoomBasePrice() * 0.1 + (GetNumberOfBeds() > 2 ? GetNumberOfBeds() - 2 : 0) * GetRoomBasePrice() * 0.05;
 	return price;
 }
 
@@ -40,7 +40,7 @@ StandardRoom& StandardRoom::operator=(const StandardRoom& other)
 //álltalános output streamre kiíró
 void StandardRoom::serialize(std::ostream& os) const
 {
-	os << GetRoomType << " ";
+	os << GetRoomType() << " ";
 	Room::serialize(os);
 	os << std::endl;
 }

@@ -10,7 +10,7 @@ Room::Room(unsigned pnum,const std::string& ptype, unsigned pbed, double pprice,
 		extras[i] = pextra[i];
 	}
 	if (pprice < 0.0) {
-		throw std::invalid_argument("Hiba: A szoba ára nem lehet negatív!");
+		throw std::invalid_argument("Hiba: A szoba ara nem lehet negativ!");
 	}
 }
 

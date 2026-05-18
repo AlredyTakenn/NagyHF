@@ -12,10 +12,10 @@ Guest::Guest()
 Guest::Guest(const std::string& pname, const std::string& pId) : name(pname), Id(pId)
 {
     if (name.empty()) {
-        throw std::invalid_argument("A Név nem lehet üres.");
+        throw std::invalid_argument("A Nev nem lehet ures.");
     }
     if (Id.empty()) {
-        throw std::invalid_argument("Az igazolványszám nem lehet üres.");
+        throw std::invalid_argument("Az igazolvanyszam nem lehet ures.");
     }
 }
 
@@ -40,7 +40,7 @@ void Guest::SetName(const string& pname)
 {
 	if (pname.empty())
     {
-        throw invalid_argument("A Név nem lehet üres.");
+        throw invalid_argument("A Nev nem lehet ures.");
     }
     name = pname;
 }
@@ -49,7 +49,7 @@ void Guest::SetId(const string& pId)
 {
     if (pId.empty())
     {
-        throw invalid_argument("Az igazolványszám nem lehet üres.");
+        throw invalid_argument("Az igazolvanyszam nem lehet ures.");
     }
     Id = pId;
 }

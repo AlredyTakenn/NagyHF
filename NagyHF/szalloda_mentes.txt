@@ -1,0 +1,10 @@
+[ROOMS] 3
+Standard 101 2 20000 2 Wifi Klima 
+Family 201 4 35000 3 Wifi Klima Gyerekjatek 2
+Luxury 301 2 60000 5 Wifi Klima Minibar Jakuzzi Masszazsagy 1 1
+[GUESTS] 2
+Kovacs Aladar 111111AA
+Nagy Eszter 222222BB
+[RESERVATIONS] 1
+2026-06-10 2026-06-15 0 101 1 Kovacs Aladar 111111AA
+2 Reggeli Parkolas 
