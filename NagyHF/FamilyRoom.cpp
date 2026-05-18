@@ -17,6 +17,10 @@ FamilyRoom::FamilyRoom(const FamilyRoom& other)
 	: Room(other), numberOfChildBeds(other.numberOfChildBeds)
 {
 }
+unsigned FamilyRoom::GetNumberOfChildBeds() const
+{
+	return numberOfChildBeds;
+}
 
 //specializált napi ár kiszámító a családi szobára
 double FamilyRoom::CalculatePrice() const

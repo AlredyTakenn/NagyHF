@@ -19,6 +19,16 @@ LuxuryRoom::LuxuryRoom(const LuxuryRoom& other):
 {
 }
 
+bool LuxuryRoom::GetHasJacuzzi() const
+{
+	return hasJacuzzi;
+}
+
+bool LuxuryRoom::GetHasMassageChair() const
+{
+	return hasMassageChair;
+}
+
 //napi árat kiszámító függvény
 double LuxuryRoom::CalculatePrice() const
 {

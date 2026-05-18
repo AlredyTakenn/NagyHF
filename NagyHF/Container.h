@@ -9,7 +9,7 @@ private:
 	unsigned capacity;				//maximális kapacitás
 public:
 	//Konstruktorok
-	Container(unsigned pcapacity = 50)
+	Container(unsigned pcapacity = 5)
 	{
 		capacity = pcapacity;
 		elementCount = 0;

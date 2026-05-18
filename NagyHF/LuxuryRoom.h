@@ -12,6 +12,9 @@ public:
     LuxuryRoom(unsigned pnum, unsigned pbed, double pprice, std::string* pextra,unsigned pextracount, bool pjacuzzi, bool pmassageChair);
     LuxuryRoom(const LuxuryRoom& other);
 
+    bool GetHasJacuzzi() const;
+    bool GetHasMassageChair() const;
+
     //A szoba árát kiszámolja egy napra
     double CalculatePrice() const override;     
 
