@@ -132,9 +132,9 @@ void Hotel::SearchFreeRoom(const std::chrono::year_month_day& searchFrom, const 
 		bool isFree = true;
 		for (unsigned j = 0; i < reservationList.getElementCount(); j++)
 		{
-			if (temp->GetRoomNumber() == reservationList[i].GetReservedRoom()->GetRoomNumber())
+			if (temp->GetRoomNumber() == reservationList[j].GetReservedRoom()->GetRoomNumber())
 			{
-				if (searchFrom < reservationList[i].GetTimeTo()&& searchTo > reservationList[i].GetTimeFrom())
+				if (searchFrom < reservationList[j].GetTimeTo()&& searchTo > reservationList[j].GetTimeFrom())
 				{
 					isFree = false;
 					break;
