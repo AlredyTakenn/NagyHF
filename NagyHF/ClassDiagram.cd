@@ -9,6 +9,14 @@
   </Class>
   <Class Name="Guest" Collapsed="true">
     <Position X="5.75" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="Serializable" ManuallyRouted="true">
+      <Path>
+        <Point X="4.75" Y="3.312" />
+        <Point X="4.75" Y="4.875" />
+        <Point X="6.5" Y="4.875" />
+        <Point X="6.5" Y="5.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAIAAAAAAAIAAAAAAEAAAAQAAAQAIABAg=</HashCode>
       <FileName>Guest.h</FileName>

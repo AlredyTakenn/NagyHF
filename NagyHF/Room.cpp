@@ -41,7 +41,7 @@ unsigned Room::GetNumberOfBeds() const
 	return numberOfBeds;
 }
 
-unsigned Room::GetRoomBasePrice() const
+double Room::GetRoomBasePrice() const
 {
 	return roomBasePrice;
 }

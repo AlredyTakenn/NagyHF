@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AutomatedTest.cpp" />
+    <ClCompile Include="ConsoleUI.cpp" />
     <ClCompile Include="FamilyRoom.cpp" />
     <ClCompile Include="Guest.cpp" />
     <ClCompile Include="Hotel.cpp" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutomatedTest.h" />
+    <ClInclude Include="ConsoleUI.h" />
     <ClInclude Include="Container.h" />
     <ClInclude Include="FamilyRoom.h" />
     <ClInclude Include="Guest.h" />

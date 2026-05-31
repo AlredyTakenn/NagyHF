@@ -20,7 +20,7 @@ public:
 	unsigned GetRoomNumber() const;
 	std::string GetRoomType() const;
 	unsigned GetNumberOfBeds() const;
-	unsigned GetRoomBasePrice() const;
+	double GetRoomBasePrice() const;
 	const std::string* GetExtras() const;
 	const unsigned GetExtrasCount() const;
 
