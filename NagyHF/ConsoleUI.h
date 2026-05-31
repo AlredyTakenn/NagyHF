@@ -4,14 +4,15 @@
 class ConsoleUI
 {
 private:
-	void handleNewGuest(Hotel& hotel);
-	void handleNewReservation(Hotel& hotel);
-	void handleCheckIn(Hotel& hotel);
-	void handleCheckOut(Hotel& hotel);
-	void handleSearch(Hotel& hotel);
-	void handleLoading(Hotel& hotel);
-	void handleSaving(Hotel& hotel);
+	static bool askRetry();
+	static void handleNewGuest(Hotel& hotel);
+	static void handleNewReservation(Hotel& hotel);
+	static void handleCheckIn(Hotel& hotel);
+	static void handleCheckOut(Hotel& hotel);
+	static void handleSearch(const Hotel& hotel);
+	static void handleLoading(Hotel& hotel);
+	static void handleSaving(const Hotel& hotel);
 public:
-	void run(Hotel& hotel);
+	static void run(Hotel& hotel);
 };
 
