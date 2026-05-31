@@ -142,7 +142,7 @@ void ConsoleUI::handleCheckOut(Hotel& hotel)
 	}
 }
 
-void ConsoleUI::handleSearch(Hotel& hotel)
+void ConsoleUI::handleSearch(const Hotel& hotel)
 {
 	while (true)
 	{
@@ -208,7 +208,7 @@ void ConsoleUI::handleLoading(Hotel& hotel)
 	}
 }
 
-void ConsoleUI::handleSaving(Hotel& hotel)
+void ConsoleUI::handleSaving(const Hotel& hotel)
 {
 	while (true)
 	{
